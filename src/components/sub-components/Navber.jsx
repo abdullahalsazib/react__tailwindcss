@@ -3,233 +3,192 @@ import { Link, Outlet } from "react-router-dom";
 import { BiCloset, BiSearch, BiShoppingBag, BiUser } from "react-icons/bi";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
+import Side_ChekOut from "./Side_ChekOut";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setCartOpen] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(true);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navList = [
-    { name: "Home", path: "/" },
-    { name: "Shop", path: "/shop" },
-    { name: "Pages", path: "/pages" },
-    { name: "Blog", path: "/blog" },
-    { name: "Contact Us", path: "/contactus" },
+  const navigation = [
+    { name: "Home", href: "/" },
+    { name: "Shop", href: "/shop" },
+    { name: "Pages", href: "/pages" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact Us", href: "/contactus" },
   ];
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleCart = () => {
     setCartOpen(!isCartOpen);
+    console.log(isCartOpen);
   };
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
 
   return (
     <>
-      <nav className="flex justify-between items-center bg-[#F2F2F2] py-3 sm:py-4 lg:py-5 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-40 relative">
-        {/* Hamburger Menu - Improved touch target */}
-        <button
-          className="p-2 text-2xl sm:text-3xl lg:hidden hover:bg-slate-200 rounded-lg"
-          onClick={toggleMenu}
-          aria-label="Toggle Navigation"
+      <header className="absolute inset-x-0 top-0 z-50">
+        <nav
+          aria-label="Global"
+          className="flex items-center justify-between p-6 lg:px-8"
         >
-          {isMenuOpen ? <HiX /> : <HiOutlineMenu />}
-        </button>
-
-        {/* Logo with better responsive sizing */}
-        <Link
-          to="/"
-          className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
-        >
-          <img
-            className="w-28 sm:w-32 md:w-36 lg:w-40"
-            src="https://wpocean.com/html/tf/pengu/assets/images/logo.svg"
-            alt="Logo"
-          />
-        </Link>
-
-        {/* Mobile Navigation with AnimatePresence */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-              onClick={() => setIsMenuOpen(false)}
+          <div className="flex lg:flex-1">
+            <a href="#" className="-m-1.5 p-1.5">
+              <span className="sr-only">Your Company</span>
+              <img
+                alt=""
+                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                className="h-8 w-auto"
+              />
+            </a>
+          </div>
+          <div className="flex lg:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
             >
-              <motion.div
-                initial={{ x: "-100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="fixed inset-y-0 left-0 w-[280px] sm:w-[320px] bg-white shadow-xl z-50"
-                onClick={(e) => e.stopPropagation()}
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon aria-hidden="true" className="size-6" />
+            </button>
+          </div>
+          <div className="hidden lg:flex lg:gap-x-12">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm/6 font-semibold text-gray-900"
               >
-                {/* Mobile Menu Header */}
-                <div className="p-4 border-b flex justify-between items-center">
-                  <img
-                    className="w-24 sm:w-28"
-                    src="https://wpocean.com/html/tf/pengu/assets/images/logo.svg"
-                    alt="Logo"
-                  />
-                  <button
-                    onClick={() => setIsMenuOpen(false)}
-                    className="p-2 hover:bg-slate-100 rounded-full text-2xl"
-                  >
-                    <HiX />
-                  </button>
-                </div>
-
-                {/* Mobile Navigation Links */}
-                <div className="py-4">
-                  {navList.map((item, index) => (
+                {item.name}
+              </a>
+            ))}
+          </div>
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="#" className="text-sm/6 font-semibold text-gray-900">
+              Log in <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </nav>
+        <Dialog
+          open={mobileMenuOpen}
+          onClose={setMobileMenuOpen}
+          className="lg:hidden"
+        >
+          <div className="fixed inset-0 z-50" />
+          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div className="flex items-center justify-between">
+              <a href="#" className="-m-1.5 p-1.5">
+                <span className="sr-only">Your Company</span>
+                <img
+                  alt=""
+                  src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                  className="h-8 w-auto"
+                />
+              </a>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              >
+                <span className="sr-only">Close menu</span>
+                <XMarkIcon aria-hidden="true" className="size-6" />
+              </button>
+            </div>
+            <div className="mt-6 flow-root">
+              <div className="-my-6 divide-y divide-gray-500/10">
+                <div className="space-y-2 py-6">
+                  {navigation.map((item) => (
                     <Link
-                      key={index}
-                      to={item.path}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="block px-6 py-3 text-lg hover:bg-slate-50 text-slate-700"
+                      key={item.name}
+                      to={item.href}
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                     >
                       {item.name}
                     </Link>
                   ))}
                 </div>
-
-                {/* Mobile Menu Footer */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 border-t">
-                  <Link
-                    to="/login"
-                    className="flex items-center gap-2 text-lg font-medium"
-                    onClick={() => setIsMenuOpen(false)}
+                <div className="py-6">
+                  <a
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                   >
-                    <BiUser />
-                    <span>Login</span> / <span>Register</span>
-                  </Link>
+                    Log in
+                  </a>
                 </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </div>
+            </div>
+          </DialogPanel>
+        </Dialog>
+      </header>
 
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-8 xl:gap-12">
-          {navList.map((item, index) => (
-            <Link
-              key={index}
-              to={item.path}
-              className="text-base xl:text-lg text-slate-700 hover:text-slate-900 font-medium"
-            >
-              {item.name}
-            </Link>
-          ))}
+      {/* Hero section */}
+
+      <div className="relative isolate px-6 pt-14 lg:px-8">
+        <Outlet />
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+        >
+          <div
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            }}
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+          />
         </div>
-
-        {/* Right Icons Section */}
-        <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
-          {/* Cart Icon */}
-          <div className="relative">
-            <TopIcons onClick={toggleCart} icons={<BiShoppingBag />} />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-              3
-            </span>
+        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+            <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+              Announcing our next round of funding.{" "}
+              <a href="#" className="font-semibold text-indigo-600">
+                <span aria-hidden="true" className="absolute inset-0" />
+                Read more <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
           </div>
-
-          {/* Search Icon */}
-          <div className="relative">
-            <TopIcons onClick={toggleSearch} icons={<BiSearch />} />
-            <AnimatePresence>
-              {isSearchOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute right-0 top-full mt-2 w-[280px] sm:w-[320px] bg-white rounded-lg shadow-xl p-4"
-                >
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Search..."
-                      className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-slate-300"
-                    />
-                    <BiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <button
-                      onClick={toggleSearch}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-100 rounded-full"
-                    >
-                      <HiX />
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <div className="text-center">
+            <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
+              Data to enrich your online business
+            </h1>
+            <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
+              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <a
+                href="#"
+                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Get started
+              </a>
+              <a href="#" className="text-sm/6 font-semibold text-gray-900">
+                Learn more <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
-
-          {/* User Icon */}
-          <Link to="/login" className="hidden sm:block">
-            <TopIcons icons={<BiUser />} />
-          </Link>
         </div>
-      </nav>
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+        >
+          <div
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            }}
+            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+          />
+        </div>
+      </div>
 
       {/* Shopping Cart Sidebar */}
       <AnimatePresence>
-        {isCartOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 z-50"
-            onClick={() => setCartOpen(false)}
-          >
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed inset-y-0 right-0 w-full sm:w-[400px] bg-white shadow-xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Cart Header */}
-              <div className="p-4 border-b flex justify-between items-center">
-                <h3 className="text-xl font-semibold">Shopping Cart (3)</h3>
-                <button
-                  onClick={() => setCartOpen(false)}
-                  className="p-2 hover:bg-slate-100 rounded-full"
-                >
-                  <HiX className="text-2xl" />
-                </button>
-              </div>
-
-              {/* Cart Items */}
-              <div className="flex-1 overflow-y-auto">
-                <div className="p-4 space-y-4">
-                  <AddCartCmp />
-                  <AddCartCmp />
-                  <AddCartCmp />
-                </div>
-              </div>
-
-              {/* Cart Footer */}
-              <div className="border-t p-4 bg-white">
-                <div className="flex justify-between mb-4">
-                  <span className="text-lg">Subtotal:</span>
-                  <span className="font-semibold text-lg">$297.00</span>
-                </div>
-                <div className="space-y-3">
-                  <button className="w-full bg-slate-800 text-white py-3 rounded-lg hover:bg-slate-700">
-                    View Cart
-                  </button>
-                  <button className="w-full border-2 border-slate-800 text-slate-800 py-3 rounded-lg hover:bg-slate-100">
-                    Checkout
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
+        {!isCartOpen && <Side_ChekOut open={isCartOpen} />}
       </AnimatePresence>
-
-      <Outlet />
     </>
   );
 };

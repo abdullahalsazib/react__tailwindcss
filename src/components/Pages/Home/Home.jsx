@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SubHome from "./Home_sum_compo/SubHome";
+import Example from "../../sub-components/Dorp_down";
 
 const Home = () => {
   const images = [
@@ -73,6 +74,41 @@ const Home = () => {
         </div> */}
       </div>
       <SubHome />
+      <Example />
+
+      <section className="pengu-banner-section bg-gray-100 py-12">
+        <div className="container mx-auto px-4">
+          <div className="banner-wrap">
+            <div className="row flex justify-center">
+              <div className="col-lg-7 col-md-9 col-12">
+                <div className="content text-center">
+                  {/* Background Text */}
+                  <div className="bg-text">
+                    <h1 className="text-7xl font-bold text-gray-800 uppercase opacity-10">
+                      Fashion
+                    </h1>
+                  </div>
+                  {/* Main Heading */}
+                  <h2 className="text-4xl font-semibold text-gray-900 mt-4">
+                    Stylish casual sweater &amp; sneakers
+                  </h2>
+                  {/* Description */}
+                  <p className="text-lg text-gray-700 mt-2">
+                    Beautiful, Fashionable and Stylish
+                  </p>
+                  {/* Shop Now Button */}
+                  <a
+                    href="shop.html"
+                    className="inline-block bg-blue-500 text-white font-medium py-2 px-6 rounded-lg mt-6 hover:bg-blue-600 transition-all"
+                  >
+                    Shop Now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

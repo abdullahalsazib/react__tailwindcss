@@ -4,21 +4,24 @@ import ShopCart from "../../../sub-components/Shop_cart";
 const SubHome = () => {
   return (
     <>
-      <div className="container mx-auto px-4">
+      <div className="container-fluid mx-auto px-4 xl:px-40">
         <div className="text-center">
-          <h1 className="text-4xl font-semibold pt-3 mt-5">New Arraival</h1>
+          <h1 className="text-4xl font-semibold pt-3 my-5">New Arraival</h1>
           <p className="text-gray-500">
             Here is our new arraival products that you may like.
           </p>
           <span className="bg-[#FF4D6D] w-52 h-1 block mx-auto mt-2"></span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-          <ShopCart  />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 lg:gap-x-5 mt-10">
           <ShopCart />
           <ShopCart />
           <ShopCart />
           <ShopCart />
         </div>
+        <br />
+        <br />
+                 <br />
+                 
       </div>
     </>
   );
