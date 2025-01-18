@@ -4,7 +4,7 @@ import ShopCart from "../../../sub-components/Shop_cart";
 const SubHome = () => {
   return (
     <>
-      <div className="container-fluid mx-auto px-4 xl:px-40">
+      <div className="container-fluid mx-auto ">
         <div className="text-center">
           <h1 className="text-4xl font-semibold pt-3 my-5">New Arraival</h1>
           <p className="text-gray-500">
@@ -20,8 +20,7 @@ const SubHome = () => {
         </div>
         <br />
         <br />
-                 <br />
-                 
+        <br />
       </div>
     </>
   );

@@ -9,6 +9,7 @@ import NoPage from "./components/Pages/NoPage";
 import Shop from "./components/Pages/Shop";
 import Login from "./components/Pages/Login";
 import Singup from "./components/Pages/SignUp";
+import Product_Overview from "./components/sub-components/Shoping/Product_Overview";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<Singup />} />
+        <Route path="/product_overview" element={<Product_Overview />} />
         <Route path="/" element={<Navber />}>
           <Route index element={<Home />} />
           <Route path="/shop" element={<Shop />} />

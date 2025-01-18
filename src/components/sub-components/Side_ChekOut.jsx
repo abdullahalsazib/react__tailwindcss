@@ -37,12 +37,13 @@ const products = [
   // More products...
 ];
 
-const SideChekOut = (props) => {
-  const [open, setOpen] = useState(props.open);
-  console.log("from side checkout", !props.open);
-  console.log("setOpen on side checkout", open);
+const SideChekOut = ({ isCartOpen, setIsCartOpen }) => {
   return (
-    <Dialog open={opn} onClose={setOpen} className="relative z-10">
+    <Dialog
+      open={isCartOpen}
+      onClose={() => setIsCartOpen(false)}
+      className="relative z-10"
+    >
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/75 transition-opacity duration-500 ease-in-out data-[closed]:opacity-0"
@@ -64,7 +65,7 @@ const SideChekOut = (props) => {
                     <div className="ml-3 flex h-7 items-center">
                       <button
                         type="button"
-                        onClick={() => setOpen(false)}
+                        onClick={() => setIsCartOpen(false)}
                         className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
                       >
                         <span className="absolute -inset-0.5" />

@@ -1,10 +1,11 @@
 import React from "react";
+import Pricing_sec from "../sub-components/Product/Pricing_sec";
 
 const Pages = () => {
   return (
     <>
       <div>
-        <h1>Pages</h1>
+        <Pricing_sec />
       </div>
     </>
   );
