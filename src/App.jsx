@@ -1,11 +1,17 @@
 import React from "react";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./Components/Pages/Home";
+import Layout from "./Components/Templates/Layout";
 const App = () => {
   return (
     <>
-      <div>
-        <h1>Hello App</h1>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
