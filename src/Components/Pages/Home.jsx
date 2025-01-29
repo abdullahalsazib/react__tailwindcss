@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FaLongArrowAltRight,
   FaRegStar,
@@ -32,7 +31,7 @@ const Home = () => {
               Give Your Workout A New Style!
             </h1>
             <p className="text-slate-500  capitalize">
-              Success isn't always about greatness. It's about
+              Success is not always about greatness. It is about
               construction.Consistency hard work gains Success. Greatness will
               cone.
             </p>

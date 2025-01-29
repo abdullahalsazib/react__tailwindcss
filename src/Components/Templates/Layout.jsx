@@ -1,5 +1,5 @@
 import { CiMenuBurger, CiShop } from "react-icons/ci";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "../Templates/Layout.css";
 
